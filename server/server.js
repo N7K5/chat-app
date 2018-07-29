@@ -21,13 +21,26 @@ app.use((req, res, next) => {
 io.on("connection", function(socket) {
     console.log("Connected with client");
 
+    socket.emit("newMessage", {
+        from: "admin",
+        message: "Welcome to chatroom",
+        createdAt: new Date().toLocaleTimeString()
+    });
+    socket.broadcast.emit("newMessage", {
+        from: "admin",
+        message: "new USer Joined...",
+        createdAt: new Date().toLocaleTimeString()
+    })
+
 
     socket.on("disconnect", function() {
         console.log("Disconnected from client");
     });
 
     socket.on("createMessage", message => {
-        io.emit("newMessage", message);
+        message.createdAt= new Date().toLocaleTimeString();
+        // io.emit("newMessage", message);
+        socket.broadcast.emit("newMessage", message);
     })
 
 }); 
