@@ -13,8 +13,31 @@ socket.on("disconnect", function() {
 socket.on("newMessage", message => {
     // console.log(JSON.stringify(message, undefined, 2));
     var time= moment(message.createdAt).format("h:mm a");
-    var li= `<li> ${message.from} ${time} : ${message.text}`;
-    document.getElementById("message").innerHTML+=li;
+    // var li= `<li> ${message.from} ${time} : ${message.text}`;
+    // document.getElementById("message").innerHTML+=li;
+
+    var template= document.getElementById("message__template").innerHTML;
+    var html= Mustache.render(template, {
+        from: message.from,
+        text: message.text,
+        createdAt: time
+    });
+    document.getElementById("message").innerHTML+= html;
+});
+
+socket.on("newLocMessage", message => {
+    // console.log(JSON.stringify(message, undefined, 2));
+    var time= moment(message.createdAt).format("h:mm a");
+    // var li= `<li> ${message.from} ${time} : ${message.text}`;
+    // document.getElementById("message").innerHTML+=li;
+
+    var template= document.getElementById("message__loc__template").innerHTML;
+    var html= Mustache.render(template, {
+        from: message.from,
+        text: message.text,
+        createdAt: time
+    });
+    document.getElementById("message").innerHTML+= html;
 });
 
 // socket.on("newEmail", function(cont) {
@@ -47,6 +70,7 @@ document.getElementById("location").addEventListener("click", e => {
 
     navigator.geolocation.getCurrentPosition((position) => {
         socket.emit("sendLocation", {
+            from:"anon",
             lat: position.coords.latitude,
             lng: position.coords.longitude,
         }, () => {

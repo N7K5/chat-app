@@ -26,12 +26,37 @@
                     </form>
                     <button id="location">Location</button>
             </div>
-        
 
          </div>
+
+         <script id="message__template" type="text/template">
+            <li class="message">
+                <div class="message__title">
+                    <h4>{{from}}</h4>
+                    <span>{{createdAt}}</span>
+                </div>
+                <div class="message__body">
+                    <p>{{text}}</p>
+                </div>
+            </li>
+        </script>
+
+        <script id="message__loc__template" type="text/template">
+            <li class="message">
+                <div class="message__title">
+                    <a href="https://maps.google.com?q={{text}}" target="_blank"><h4>{{from}} Shared Location...</h4></a>
+                    <span>{{createdAt}}</span>
+                </div>
+                <div class="message__body">
+                    <p></p>
+                </div>
+            </li>
+        </script>
+
     </body>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/index.js"></script>
+    <script src="/js/mustache.js"></script>
     <script src="/js/moment.js"></script>
 </html>

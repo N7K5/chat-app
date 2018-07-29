@@ -41,7 +41,7 @@ io.on("connection", function(socket) {
     });
 
     socket.on("sendLocation", (message, callback) => {
-        io.emit("newMessage", utils.createMessage("location", `${message.lat} , ${message.lng}`));
+        io.emit("newLocMessage", utils.createMessage(message.from, `${message.lat},${message.lng}`));
         callback();
     });
 

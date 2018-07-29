@@ -171,6 +171,14 @@
   .message__title span {
     color: #999;
   }
+
+  a{
+    color:rgb(24, 0, 68);
+    font-weight: bold;
+    font-style: italic;
+    padding-left: 10px;
+    text-decoration: none;
+  }
   
   @media (max-width: 600px) {
     * {
