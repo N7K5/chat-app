@@ -5,30 +5,33 @@
         <meta charset="utf-8" >
         <title>The page</title>
 
-        <style>
-            #text {
-                padding: 5px;
-            }
-            #send {
-                padding: 5px;
-            }
-            #message_form {
-                position: fixed;
-                bottom: 40px;
-            }
-        </style>
+        <link type="text/css" rel="stylesheet" href="css/index.css">
         
     </head>
 
-    <body>
-        <ol id="message"></ol>
+    <body class="chat">
 
-        <form action="post" id="message_form">
-            <input type="text" name="text" id="text" placeholder="Write anything here" >
-            <button id="send">send</button>
-        </form>
+        <div class="chat__sidebar">
+            <h3>Users</h3>
+            <div id="users"></div>
+        </div>  
+
+        <div class="chat__main">
+            <ol id="message" class="chat__messages"></ol>
+
+            <div class="chat__footer">
+                <form action="post" id="message_form">
+                    <input type="text" name="text" id="text" placeholder="Write anything here" autofocus autocomplete="off" >
+                    <button id="send">send</button>
+                    </form>
+                    <button id="location">Location</button>
+            </div>
+        
+
+         </div>
     </body>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/index.js"></script>
+    <script src="/js/moment.js"></script>
 </html>

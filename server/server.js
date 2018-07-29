@@ -3,6 +3,8 @@ const path= require("path");
 const publicDir= path.join(__dirname, "../public");
 const  utils  = require("./../utils/utils");
 
+const moment= require("moment");
+
 const socketIO= require("socket.io");
 const http= require("http");
 
@@ -35,6 +37,11 @@ io.on("connection", function(socket) {
 
         // io.emit("newMessage", message);
         socket.broadcast.emit("newMessage", utils.createMessage(message));
+        callback();
+    });
+
+    socket.on("sendLocation", (message, callback) => {
+        io.emit("newMessage", utils.createMessage("location", `${message.lat} , ${message.lng}`));
         callback();
     });
 

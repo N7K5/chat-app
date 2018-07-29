@@ -5,7 +5,7 @@ var createMessage= (from, text) => {
         return {
             from,
             text,
-            createdAt: new Date().toLocaleTimeString()
+            createdAt: new Date().getTime()
         };
     }
     else if(typeof from== "object") {
@@ -14,14 +14,14 @@ var createMessage= (from, text) => {
                 return {
                     from: from.from,
                     text: from.text,
-                    createdAt: new Date().toLocaleTimeString()
+                    createdAt: new Date().getTime()
                 };
             }
             else {
                 return {
                     from: from.from,
                     text: "No message was sent...",
-                    createdAt: new Date().toLocaleTimeString()
+                    createdAt: new Date().getTime()
                 };
             }
         }
