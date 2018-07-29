@@ -25,17 +25,21 @@ io.on("connection", function(socket) {
     socket.on("disconnect", function() {
         console.log("Disconnected from client");
     });
-    
+
+    socket.on("createMessage", message => {
+        io.emit("newMessage", message);
+    })
+
 }); 
 
 
 
-// app.use(express.static(publicDir));
+app.use(express.static(publicDir));
 
 
-app.get("/", (req, res) => {
-    res.sendFile(publicDir+ "/index.html");
-});
+// app.get("/", (req, res) => {
+//     res.sendFile(publicDir+ "/index.html");
+// });
 
 server.listen(PORT, () => {
     console.log("\n\n\tListening on port "+ PORT +"\n\n");
