@@ -31,7 +31,7 @@ io.on("connection", function(socket) {
     socket.on("disconnect", function() {
         var user= people.removeUser(socket.id);
         if(user) {
-            socket.broadcast.to(user.room).emit("updateUserList", people.getUserList(user.room));
+            io.to(user.room).emit("UpdateUserList", people.getUserList(user.room));
             socket.broadcast.to(user.room).emit("newMessage", utils.createMessage("Admin", `${user.name} has left...`));
         }
     });
