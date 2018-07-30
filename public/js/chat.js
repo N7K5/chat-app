@@ -13,6 +13,9 @@ socket.on("connect", function() {
             alert(err);
             window.location.href="/";
         }
+        else {
+            document.getElementById("room_name").innerHTML=getParms("room").trim().toLowerCase();
+        }
     });
 });
 
@@ -21,7 +24,6 @@ socket.on("disconnect", function() {
 });
 
 socket.on("UpdateUserList", function(users) {
-    alert("update");
     //console.log(users);
     var users_ol= document.getElementById("users_ol");
     users_ol.innerHTML= "";

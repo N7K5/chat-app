@@ -40,11 +40,13 @@ io.on("connection", function(socket) {
         if(!isValidString(data.name) || !isValidString(data.room)) {
             return callback("Invalid name or room name");
         }
+        data.room= data.room.trim().toLowerCase();
         
         socket.join(data.room);
         people.removeUser(socket.id);
         people.addUser(socket.id, data.name, data.room);
 
+        callback();
         io.to(data.room).emit("UpdateUserList", people.getUserList(data.room));
 
         socket.emit("newMessage", utils.createMessage("Admin", "Welcome to Chatroom..."));

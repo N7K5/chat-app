@@ -6,6 +6,7 @@ class Users {
     }
 
     addUser(id, name, room) {
+        room= room.trim().toLowerCase();
         var user= { id, name, room};
         this.users.push(user);
         return user;
@@ -25,6 +26,7 @@ class Users {
 
 
     getUserList(room) {
+        room= room.trim().toLowerCase();
         var allUsers= this.users.filter(user => user.room == room);
         var names= allUsers.map(user => user.name);
         return names;
@@ -33,4 +35,4 @@ class Users {
 }
 
 
-module.exports = { Users};
+module.exports = {Users};
