@@ -69,9 +69,12 @@ socket.on("newLocMessage", message => {
 document.getElementById("send").addEventListener("click", e => {
     e.preventDefault();
     socket.emit("createMessage",{
-        from: "anonymous",
+        // from: "anonymous",
         text: document.getElementById("text").value
-    }, function() {
+    }, function(err) {
+        if(err) {
+            return alert("message not send");
+        }
         // alert("send successfully...");
         document.getElementById("text").value= "";
     });
@@ -91,7 +94,7 @@ document.getElementById("location").addEventListener("click", e => {
 
     navigator.geolocation.getCurrentPosition((position) => {
         socket.emit("sendLocation", {
-            from:"anon",
+            // from:"anon",
             lat: position.coords.latitude,
             lng: position.coords.longitude,
         }, () => {

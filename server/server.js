@@ -54,14 +54,33 @@ io.on("connection", function(socket) {
 
     socket.on("createMessage", (message, callback) => {
 
+        var user= people.getUser(socket.id);
+        if(!message.text) {
+            callback("Error");
+        }
+        message.text= message.text.trim();
+
+        if(user && message.text.length>0) {
+            io.to(user.room).emit("newMessage", utils.createMessage(user.name, message.text));
+            callback();
+        } 
+        else {
+            callback("error occured");
+        }
+
         // io.emit("newMessage", message);
-        socket.broadcast.emit("newMessage", utils.createMessage(message));
-        callback();
     });
 
     socket.on("sendLocation", (message, callback) => {
-        io.emit("newLocMessage", utils.createMessage(message.from, `${message.lat},${message.lng}`));
-        callback();
+        var user= people.getUser(socket.id);
+
+        if(user) {
+            io.to(user.room).emit("newLocMessage", utils.createMessage(user.name, `${message.lat},${message.lng}`));
+            callback();
+        }
+        else {
+
+        }
     });
 
 }); 
