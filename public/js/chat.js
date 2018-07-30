@@ -4,11 +4,30 @@ var socket= io();
 socket.on("connect", function() {
     console.log("Connected to Server");
     document.getElementById("message").innerHTML= "";
+
+    socket.emit("join", {
+        name: getParms("name"),
+        room: getParms("room")
+    }, (err) => {
+        if(err) {
+            alert(err);
+            window.location.href="/";
+        }
+    });
 });
 
 socket.on("disconnect", function() {
     console.log("Disconnected from Server");
 });
+
+socket.on("UpdateUserList", function(users) {
+    //console.log(users);
+    var users_ol= document.getElementById("users_ol");
+    users_ol.innerHTML= "";
+    users.forEach((user) => {
+        users_ol.innerHTML+=`<li>${user}</li>`;
+    });
+})
 
 socket.on("newMessage", message => {
     // console.log(JSON.stringify(message, undefined, 2));
@@ -23,6 +42,7 @@ socket.on("newMessage", message => {
         createdAt: time
     });
     document.getElementById("message").innerHTML+= html;
+    document.getElementById("message").scrollTop+= 9999;
 });
 
 socket.on("newLocMessage", message => {
@@ -38,6 +58,7 @@ socket.on("newLocMessage", message => {
         createdAt: time
     });
     document.getElementById("message").innerHTML+= html;
+    document.getElementById("message").scrollTop+= 9999;
 });
 
 // socket.on("newEmail", function(cont) {
@@ -88,3 +109,10 @@ document.getElementById("location").addEventListener("click", e => {
 document.getElementById("message_form").addEventListener("submit", e => {
     e.preventDefault();
 }, false);
+
+
+
+function getParms(search_str) {
+    var url= new URL(window.location.href);
+    return url.searchParams.get(search_str);
+}

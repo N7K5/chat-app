@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" >
+        <title>The page</title>
+
+        <link type="text/css" rel="stylesheet" href="css/chat.css">
+        
+    </head>
+
+    <body class="chat">
+
+        <div class="chat__sidebar">
+            <h3>Users</h3>
+            <div id="users"><ol id="users_ol"></ol></div>
+        </div>  
+
+        <div class="chat__main">
+            <ol id="message" class="chat__messages"></ol>
+
+            <div class="chat__footer">
+                <form action="post" id="message_form">
+                    <input type="text" name="text" id="text" placeholder="Write anything here" autofocus autocomplete="off" >
+                    <button id="send">send</button>
+                    </form>
+                    <button id="location">Location</button>
+            </div>
+
+         </div>
+
+         <script id="message__template" type="text/template">
+            <li class="message">
+                <div class="message__title">
+                    <h4>{{from}}</h4>
+                    <span>{{createdAt}}</span>
+                </div>
+                <div class="message__body">
+                    <p>{{text}}</p>
+                </div>
+            </li>
+        </script>
+
+        <script id="message__loc__template" type="text/template">
+            <li class="message">
+                <div class="message__title">
+                    <a href="https://maps.google.com?q={{text}}" target="_blank"><h4>{{from}} Shared Location...</h4></a>
+                    <span>{{createdAt}}</span>
+                </div>
+                <div class="message__body">
+                    <p></p>
+                </div>
+            </li>
+        </script>
+
+    </body>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/chat.js"></script>
+    <script src="/js/mustache.js"></script>
+    <script src="/js/moment.js"></script>
+</html>
